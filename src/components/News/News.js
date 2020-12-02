@@ -87,19 +87,7 @@ const News = () => {
     useEffect(() => {
         dispatch(setSearchArr((userAuth || adminAuth)))
     }, [userAuth, adminAuth, confirmedNews, allNews])
-    // const postsArr = allNews.map(item => <Post
-    //     key={item.id}
-    //     id={item.id}
-    //     title={item.title}
-    //     text={item.text}
-    //     date={item.date} />)
-    // const confirmedPostsArr = confirmedNews.map(item => <Post
-    //     key={item.id}
-    //     id={item.id}
-    //     title={item.title}
-    //     text={item.text}
-    //     date={item.date} />)
-    const narr = searchArr.map(item => <Post
+    const arr = searchArr.map(item => <Post
         key={item.id}
         id={item.id}
         title={item.title}
@@ -172,10 +160,7 @@ const News = () => {
                 </Form>
 
             }
-            {/* { (userAuth || adminAuth) ? postsArr : null}
-            { !(userAuth || adminAuth) ? confirmedPostsArr : null}
-            <hr /> */}
-            {narr}
+            {arr}
         </Container>
     )
 }
