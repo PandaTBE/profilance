@@ -14,14 +14,26 @@ display: flex;
 justify-content: space-around;
 align-items: center;
 `
+const LogInLogOut = styled.div`
+color: #ffffff;
+text-transform: uppercase;
+text-decoration: none;
+font-size: 20px;
+font-weight: 700;
+transition: 0.5s all;
+cursor: pointer;
+&:hover {
+    color: rgb(50, 86, 205);
+}
+`
 
-const Header = () => {
+const Header = ({ setModalActive }) => {
     return (
         <Wrapper>
             <Container>
                 <NavLink to='/main' className={s.link} activeClassName={s.link__active}>Главная</NavLink>
                 <NavLink to='/news' className={s.link} activeClassName={s.link__active}>Новости</NavLink>
-                <NavLink to='/auth' className={s.link} activeClassName={s.link__active}>Вход</NavLink>
+                <LogInLogOut onClick={() => setModalActive(true)} >Вход</LogInLogOut>
             </Container>
         </Wrapper>
     )
