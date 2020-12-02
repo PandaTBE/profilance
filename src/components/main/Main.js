@@ -11,12 +11,12 @@ font-size: 30px;
 `
 
 const Main = () => {
-    const { userAuth, adminAuth } = useSelector(state => state.authReducer)
+    const { userAuth, adminAuth, user, admin } = useSelector(state => state.authReducer)
     return (
         <Container>
             {!(userAuth || adminAuth) && <Text>Привет, гость!</Text>}
-            {userAuth && <Text>Привет, User!</Text>}
-            {adminAuth && <Text>Привет, Admin!</Text>}
+            {userAuth && <Text>Привет, {user.username}</Text>}
+            {adminAuth && <Text>Привет, {admin.username}</Text>}
         </Container>
     )
 }
