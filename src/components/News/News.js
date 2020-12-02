@@ -87,18 +87,18 @@ const News = () => {
     useEffect(() => {
         dispatch(setSearchArr((userAuth || adminAuth)))
     }, [userAuth, adminAuth, confirmedNews, allNews])
-    const postsArr = allNews.map(item => <Post
-        key={item.id}
-        id={item.id}
-        title={item.title}
-        text={item.text}
-        date={item.date} />)
-    const confirmedPostsArr = confirmedNews.map(item => <Post
-        key={item.id}
-        id={item.id}
-        title={item.title}
-        text={item.text}
-        date={item.date} />)
+    // const postsArr = allNews.map(item => <Post
+    //     key={item.id}
+    //     id={item.id}
+    //     title={item.title}
+    //     text={item.text}
+    //     date={item.date} />)
+    // const confirmedPostsArr = confirmedNews.map(item => <Post
+    //     key={item.id}
+    //     id={item.id}
+    //     title={item.title}
+    //     text={item.text}
+    //     date={item.date} />)
     const narr = searchArr.map(item => <Post
         key={item.id}
         id={item.id}
@@ -116,9 +116,9 @@ const News = () => {
         resetForm({})
     }
     const serchHandler = (e) => {
-        setSymbols(e.target.value.toLowerCase())
+        setSymbols(e.target.value)
         if (e.target.value) {
-            dispatch(search(e.target.value, (userAuth || adminAuth)));
+            dispatch(search(e.target.value.toLowerCase(), (userAuth || adminAuth)));
         } else {
             dispatch(search('', (userAuth || adminAuth)));
         }
@@ -172,9 +172,9 @@ const News = () => {
                 </Form>
 
             }
-            { (userAuth || adminAuth) ? postsArr : null}
+            {/* { (userAuth || adminAuth) ? postsArr : null}
             { !(userAuth || adminAuth) ? confirmedPostsArr : null}
-            <hr />
+            <hr /> */}
             {narr}
         </Container>
     )

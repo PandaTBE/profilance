@@ -45,6 +45,17 @@ const newsReducer = (state = initialState, action) => {
         case DELETE_POST: {
             const index = state.allNews.findIndex(item => item.id === action.id)
             const newArr = [...state.allNews.slice(0, index), ...state.allNews.slice(index + 1)]
+            const index2 = state.confirmedNews.findIndex(item => item.id === action.id)
+
+            if (index2 >= 0) {
+                const newArr2 = [...state.confirmedNews.slice(0, index), ...state.confirmedNews.slice(index + 1)]
+                return {
+                    ...state,
+                    allNews: newArr,
+                    confirmedNews: newArr2
+                }
+            }
+
             return {
                 ...state,
                 allNews: newArr
