@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, compose } from 'redux'
 import authReducer from './auth-reducer'
 import newsReducer from './news-reducer'
 

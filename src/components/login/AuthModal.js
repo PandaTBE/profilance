@@ -1,7 +1,9 @@
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as yup from 'yup'
+import { login } from '../../redux/auth-reducer'
 const Container = styled.div`
 transition: 0.5s all;
 height: 100vh;
@@ -65,8 +67,16 @@ font-size: 15px;
 background-color: rgba(240, 132, 132, 0.3);
 `
 const AuthModal = ({ modalActive, setModalActive }) => {
-    const loginFormHandler = (value) => {
-        console.log(value)
+    const { error, adminAuth, userAuth } = useSelector(state => state.authReducer)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (adminAuth || userAuth) {
+            setModalActive(false)
+        }
+    }, [adminAuth, userAuth])
+    const loginFormHandler = (value, { resetForm }) => {
+        dispatch(login(value))
+        resetForm({})
     }
     const validationSchema = yup.object().shape({
         username: yup.string().required('Это обязательное поле'),
@@ -78,13 +88,14 @@ const AuthModal = ({ modalActive, setModalActive }) => {
             password: ''
         },
         validationSchema,
-        onSubmit: (value) => loginFormHandler(value)
+        onSubmit: (value, { resetForm }) => loginFormHandler(value, { resetForm })
 
     })
     return (
         <Container modalActive={modalActive} onClick={() => setModalActive(false)}>
             <Content modalActive={modalActive} onClick={(e) => e.stopPropagation()}>
                 <Text>Авторизация</Text>
+                {error ? <div>{error}</div> : null}
                 <Form onSubmit={formik.handleSubmit}>
                     {formik.touched.username && formik.errors.username ? <ErrorMessage>{formik.errors.username}</ErrorMessage> : null}
                     <Input

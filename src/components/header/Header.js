@@ -1,6 +1,8 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { logout } from '../../redux/auth-reducer'
 import s from './header.module.css'
 const Wrapper = styled.div`
 background-color: aqua;
@@ -28,12 +30,26 @@ cursor: pointer;
 `
 
 const Header = ({ setModalActive }) => {
+    const { adminAuth, userAuth } = useSelector(state => state.authReducer)
+    const dispatch = useDispatch()
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
     return (
         <Wrapper>
             <Container>
                 <NavLink to='/main' className={s.link} activeClassName={s.link__active}>Главная</NavLink>
                 <NavLink to='/news' className={s.link} activeClassName={s.link__active}>Новости</NavLink>
-                <LogInLogOut onClick={() => setModalActive(true)} >Вход</LogInLogOut>
+                <div>
+                    {(adminAuth || userAuth)
+                        ?
+                        <LogInLogOut onClick={() => logoutHandler()}>Выход</LogInLogOut>
+                        :
+                        <LogInLogOut onClick={() => setModalActive(true)} >Вход</LogInLogOut>
+                    }
+                </div>
+
+
             </Container>
         </Wrapper>
     )
